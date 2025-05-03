@@ -1,4 +1,4 @@
-import { app, BrowserWindow, nativeImage } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 import getResourcePath from './utils/get-assets-path';
@@ -9,16 +9,18 @@ if (started) {
 }
 
 // Icon development mode
-app.dock.setIcon(path.join(getResourcePath('logo.png')))
+// app.dock.setIcon(path.join(getResourcePath('logo.png')))
 
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1050,
     height: 700,
+    // frame: false,
     icon: path.join(getResourcePath('logo.png')),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      sandbox: false,
     },
   });
 
@@ -32,6 +34,9 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 };
+
+// run this at early startup, before app.on('ready')
+app.commandLine.appendSwitch('--no-sandbox')
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -54,6 +59,7 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.

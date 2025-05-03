@@ -5,12 +5,33 @@ import EditorView from './components/EditorView'
 
 import '@mantine/core/styles.css';
 
-const mockFiles = ['intro.md', 'project.md', 'readme.md']
-const mockContents: Record<string, string> = {
-  'intro.md': '# Bem-vindo\nEste é o Jokensidian!',
-  'project.md': '## Sobre o Projeto\nEste é um clone de Obsidian e Atom.',
-  'readme.md': '# README\nAlgumas informações...',
+export interface FileData {
+  id: string;
+  type: 'file' | 'folder';
+  name: string;
+  content: string;
 }
+
+const mockFiles = [
+  {
+    id: 'intro.md',
+    name: "intro.md",
+    content: '# Bem-vindo\nEste é o Jokensidian!',
+    type: "file",
+  },
+  {
+    id: "project.md",
+    name: "project.md",
+    content: '## Sobre o Projeto\nEste é um clone de Obsidian e Atom.',
+    type: "file",
+  },
+  {
+    id: "readme.md",
+    name: "readme.md",
+    content: '# README\nAlgumas informações...',
+    type: "file",
+  }
+] as FileData[]
 
 const theme = createTheme({
   /** Put your mantine theme override here */
@@ -18,20 +39,24 @@ const theme = createTheme({
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(mockFiles[0])
-  const [content, setContent] = useState(mockContents[mockFiles[0]])
 
-  function handleSelectFile(file: string) {
-    setSelectedFile(file)
-    setContent(mockContents[file])
+  function handleSelectFile(fileId: string) {
+    const foundFile = mockFiles.find(file => file.id === fileId);
+    if (foundFile) {
+      setSelectedFile(foundFile);
+    } else {
+      setSelectedFile(mockFiles[0]);
+    }
   }
 
   return (
     <MantineProvider
+      defaultColorScheme="dark"
     // theme={theme}
     >
-      <Flex>
-        <Sidebar />
-        <EditorView file={selectedFile} content={content} />
+      <Flex className='app-content'>
+        <Sidebar fileList={mockFiles} onSelect={handleSelectFile} />
+        <EditorView file={selectedFile} />
       </Flex>
     </MantineProvider>
   )

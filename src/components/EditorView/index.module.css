@@ -1,0 +1,12 @@
+.editor {
+  height: 100%;
+}
+
+.scrollarea {
+  height: unset;
+  
+}
+
+.mantine-ScrollArea-viewport > div {
+  height: 100%
+}

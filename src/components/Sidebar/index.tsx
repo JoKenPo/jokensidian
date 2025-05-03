@@ -1,4 +1,4 @@
-import { IconBulb, IconCheckbox, IconPlus, IconSearch, IconUser } from '@tabler/icons-react';
+import { IconBulb, IconCheckbox, IconFile, IconFolder, IconPlus, IconSearch, IconUser } from '@tabler/icons-react';
 import {
   ActionIcon,
   Badge,
@@ -11,8 +11,14 @@ import {
   UnstyledButton,
 } from '@mantine/core';
 import classes from './index.module.css';
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import UserButton from '../UserButton';
+import { FileData } from '@/App';
+
+interface SidebarProps {
+  fileList: FileData[]
+  onSelect: (fileId: string) => void
+}
 
 const links = [
   { icon: IconBulb, label: 'Activity', notifications: 3 },
@@ -20,19 +26,26 @@ const links = [
   { icon: IconUser, label: 'Contacts' },
 ];
 
-const collections = [
-  { emoji: '👍', label: 'Sales' },
-  { emoji: '🚚', label: 'Deliveries' },
-  { emoji: '💸', label: 'Discounts' },
-  { emoji: '💰', label: 'Profits' },
-  { emoji: '✨', label: 'Reports' },
-  { emoji: '🛒', label: 'Orders' },
-  { emoji: '📅', label: 'Events' },
-  { emoji: '🙈', label: 'Debts' },
-  { emoji: '💁‍♀️', label: 'Customers' },
+const files = [
+  { type: 'file', label: 'Sales' },
+  { type: 'file', label: 'Deliveries' },
+  { type: 'file', label: 'Discounts' },
+  { type: 'file', label: 'Profits' },
+  { type: 'file', label: 'Reports' },
+  { type: 'file', label: 'Orders' },
+  { type: 'file', label: 'Events' },
+  { type: 'file', label: 'Debts' },
+  { type: 'file', label: 'Customers' },
 ];
 
-export function NavbarSearch() {
+
+export function NavbarSearch({ fileList, onSelect }: SidebarProps) {
+
+  function handleSelectFile(event: SyntheticEvent, fileId: string) {
+    event.preventDefault()
+    onSelect(fileId)
+  }
+
   const mainLinks = links.map((link) => (
     <UnstyledButton key={link.label} className={classes.mainLink}>
       <div className={classes.mainLinkInner}>
@@ -47,17 +60,24 @@ export function NavbarSearch() {
     </UnstyledButton>
   ));
 
-  const collectionLinks = collections.map((collection) => (
+  const fileLinks = fileList.map((file) => (
     <a
       href="#"
-      onClick={(event) => event.preventDefault()}
-      key={collection.label}
-      className={classes.collectionLink}
+      onClick={(event) => handleSelectFile(event, file.id)}
+      key={file.name}
+      className={classes.fileLink}
     >
-      <Box component="span" mr={9} fz={16}>
-        {collection.emoji}
+      <Box component="span" mr={4} fz={16}>
+        {/* {file.emoji} */}
+        {
+          file.type === 'folder' ?
+            <IconFolder size={20} stroke={1.5} /> :
+            <IconFile size={20} stroke={1.5} />
+        }
       </Box>{' '}
-      {collection.label}
+      <Box component="span">
+        {file.name}
+      </Box>
     </a>
   ));
 
@@ -82,17 +102,17 @@ export function NavbarSearch() {
       </div>
 
       <div className={classes.section}>
-        <Group className={classes.collectionsHeader} justify="space-between">
+        <Group className={classes.filesHeader} justify="space-between">
           <Text size="xs" fw={500} c="dimmed">
-            Collections
+            Files
           </Text>
-          <Tooltip label="Create collection" withArrow position="right">
+          <Tooltip label="Create file" withArrow position="right">
             <ActionIcon variant="default" size={18}>
               <IconPlus size={12} stroke={1.5} />
             </ActionIcon>
           </Tooltip>
         </Group>
-        <div className={classes.collections}>{collectionLinks}</div>
+        <div className={classes.files}>{fileLinks}</div>
       </div>
     </nav>
   );
