@@ -1,6 +1,7 @@
 import React from 'react'
 import { IconChevronRight } from '@tabler/icons-react';
 import { Avatar, Group, Text, UnstyledButton } from '@mantine/core';
+
 import classes from './index.module.css';
 
 export function UserButton() {
@@ -17,7 +18,7 @@ export function UserButton() {
             Eduardo Almeida
           </Text>
 
-          <Text c="dimmed" size="xs">
+          <Text c="dimmed" size="xs" className={classes.userEmail}>
             eduardo.almeida.job@gmail.com
           </Text>
         </div>

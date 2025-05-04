@@ -67,14 +67,11 @@ export function NavbarSearch({ fileList, onSelect }: SidebarProps) {
       key={file.name}
       className={classes.fileLink}
     >
-      <Box component="span" mr={4} fz={16}>
-        {/* {file.emoji} */}
-        {
-          file.type === 'folder' ?
-            <IconFolder size={20} stroke={1.5} /> :
-            <IconFile size={20} stroke={1.5} />
-        }
-      </Box>{' '}
+      {
+        file.type === 'folder' ?
+          <IconFolder size={20} stroke={1.5} /> :
+          <IconFile size={20} stroke={1.5} />
+      }
       <Box component="span">
         {file.name}
       </Box>
@@ -97,9 +94,9 @@ export function NavbarSearch({ fileList, onSelect }: SidebarProps) {
         mb="sm"
       />
 
-      <div className={classes.section}>
+      {/* <div className={classes.section}>
         <div className={classes.mainLinks}>{mainLinks}</div>
-      </div>
+      </div> */}
 
       <div className={classes.section}>
         <Group className={classes.filesHeader} justify="space-between">
@@ -112,7 +109,7 @@ export function NavbarSearch({ fileList, onSelect }: SidebarProps) {
             </ActionIcon>
           </Tooltip>
         </Group>
-        <div className={classes.files}>{fileLinks}</div>
+        <div className={classes.mainLinks}>{fileLinks}</div>
       </div>
     </nav>
   );

@@ -54,9 +54,11 @@ function App() {
       defaultColorScheme="dark"
     // theme={theme}
     >
-      <Flex className='app-content'>
+      <Flex className='main'>
         <Sidebar fileList={mockFiles} onSelect={handleSelectFile} />
-        <EditorView file={selectedFile} />
+        <Flex direction='column' className='content'>
+          <EditorView file={selectedFile} />
+        </Flex>
       </Flex>
     </MantineProvider>
   )

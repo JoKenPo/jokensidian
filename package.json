@@ -2,7 +2,7 @@
   "name": "jokensidian",
   "productName": "jokensidian",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Markdown note-taking app inspired by Obsidian, built with Electron, Vite and TypeScript as a learning project.",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -14,8 +14,8 @@
   },
   "keywords": [],
   "author": {
-    "name": "Eduardo Pires",
-    "email": "eduardo.pires@zenvia.com"
+    "name": "Eduardo Almeida",
+    "email": "eduardo.almeida.job@gmail.com"
   },
   "license": "MIT",
   "devDependencies": {

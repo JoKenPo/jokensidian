@@ -40,12 +40,13 @@ function EditorView({ file }: EditorViewProps) {
   }, [file]);
 
   return (
-    <ScrollArea p="md" className={classes.scrollarea} mx="auto">
+    <>
+      {/* <ScrollArea p="md" className={classes.scrollarea} mx="auto"> */}
       <Text size="xl" fw={700} mb="md">
         {file.name}
       </Text>
       <RichTextEditor editor={editor} className={classes.editor}>
-        <RichTextEditor.Toolbar sticky stickyOffset={60}>
+        <RichTextEditor.Toolbar sticky>
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.Bold />
             <RichTextEditor.Italic />
@@ -90,9 +91,10 @@ function EditorView({ file }: EditorViewProps) {
           </RichTextEditor.ControlsGroup>
         </RichTextEditor.Toolbar>
 
-        <RichTextEditor.Content className={classes.editor} />
+        <RichTextEditor.Content className={classes.scrollarea} />
       </RichTextEditor>
-    </ScrollArea>
+      {/* </ScrollArea> */}
+    </>
   )
 }
 

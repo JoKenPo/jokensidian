@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-body, .app, .app-content {
+body, .app, .main {
   min-height: 100vh;
   width: 100%;
 }
@@ -17,4 +17,11 @@ body {
   /* padding: 2rem;
   background: #333; 
   color: white; */
+}
+
+.content {
+  margin-left: 300px;
+  max-height: 100vh;
+  width: 100%;
+  overflow: auto;
 }
