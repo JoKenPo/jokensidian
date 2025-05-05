@@ -26,17 +26,6 @@
   }
 }
 
-.searchCode {
-  font-weight: 700;
-  font-size: 10px;
-  background-color: light-dark(
-    var(--mantine-color-gray-0),
-    var(--mantine-color-dark-7)
-  );
-  border: 1px solid
-    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-7));
-}
-
 .mainLinks {
   padding-left: calc(var(--mantine-spacing-md) - var(--mantine-spacing-xs));
   padding-right: calc(var(--mantine-spacing-md) - var(--mantine-spacing-xs));

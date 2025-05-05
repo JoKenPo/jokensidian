@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, globalShortcut } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 import getResourcePath from './utils/get-assets-path';
@@ -33,6 +33,11 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  globalShortcut.register('CmdOrCtrl+k', () => {
+    console.log('evento')
+    mainWindow.webContents.send('focus-search-input');
+  })
 };
 
 // run this at early startup, before app.on('ready')

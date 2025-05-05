@@ -31,6 +31,8 @@ import './index.css';
 
 console.log('👋 This message is being logged by "renderer.ts", included via Vite');
 
+window.electronAPI.onFocusSearch
+
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'

@@ -11,9 +11,10 @@ import {
   UnstyledButton,
 } from '@mantine/core';
 import classes from './index.module.css';
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import UserButton from '../UserButton';
 import { FileData } from '@/App';
+import SearchInput from '../SearchInput';
 
 interface SidebarProps {
   fileList: FileData[]
@@ -41,26 +42,33 @@ const files = [
 
 export function NavbarSearch({ fileList, onSelect }: SidebarProps) {
 
+  const [list, setList] = useState(fileList)
+
   function handleSelectFile(event: SyntheticEvent, fileId: string) {
     event.preventDefault()
     onSelect(fileId)
   }
 
-  const mainLinks = links.map((link) => (
-    <UnstyledButton key={link.label} className={classes.mainLink}>
-      <div className={classes.mainLinkInner}>
-        <link.icon size={20} className={classes.mainLinkIcon} stroke={1.5} />
-        <span>{link.label}</span>
-      </div>
-      {link.notifications && (
-        <Badge size="sm" variant="filled" className={classes.mainLinkBadge}>
-          {link.notifications}
-        </Badge>
-      )}
-    </UnstyledButton>
-  ));
+  function handleSearchFile(searchText: string) {
+    const searchList = fileList.filter((file) => file.name.includes(searchText))
+    if (searchList.length > 0) setList(searchList)
+  }
 
-  const fileLinks = fileList.map((file) => (
+  // const mainLinks = links.map((link) => (
+  //   <UnstyledButton key={link.label} className={classes.mainLink}>
+  //     <div className={classes.mainLinkInner}>
+  //       <link.icon size={20} className={classes.mainLinkIcon} stroke={1.5} />
+  //       <span>{link.label}</span>
+  //     </div>
+  //     {link.notifications && (
+  //       <Badge size="sm" variant="filled" className={classes.mainLinkBadge}>
+  //         {link.notifications}
+  //       </Badge>
+  //     )}
+  //   </UnstyledButton>
+  // ));
+
+  const fileLinks = list.map((file) => (
     <a
       href="#"
       onClick={(event) => handleSelectFile(event, file.id)}
@@ -84,14 +92,8 @@ export function NavbarSearch({ fileList, onSelect }: SidebarProps) {
         <UserButton />
       </div>
 
-      <TextInput
-        placeholder="Search"
-        size="xs"
-        leftSection={<IconSearch size={12} stroke={1.5} />}
-        rightSectionWidth={70}
-        rightSection={<Code className={classes.searchCode}>Ctrl + K</Code>}
-        styles={{ section: { pointerEvents: 'none' } }}
-        mb="sm"
+      <SearchInput
+        onSearch={handleSearchFile}
       />
 
       {/* <div className={classes.section}>
