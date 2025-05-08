@@ -1,4 +1,9 @@
 import { app, BrowserWindow, globalShortcut } from 'electron';
+
+// Ambient declarations for Vite environment variables
+declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
+declare const MAIN_WINDOW_VITE_NAME: string;
+
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 import getResourcePath from './utils/get-assets-path';
